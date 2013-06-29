@@ -12,6 +12,7 @@
         android:textColor="#ffffff"
         android:textSize="25dip"
         android:textStyle="bold" />
+<<<<<<< HEAD
 
     <TextView
         android:id="@+id/Url"
@@ -44,5 +45,37 @@
         android:layout_height="wrap_content"
         android:src = "@drawable/thumb_down"/>
     
+=======
+
+    <TextView
+        android:id="@+id/Url"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:textColor="#ffffff"
+        android:textSize="25dip"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Rating"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:textColor="#ffffff"
+        android:textSize="25dip"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/Up"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="+" />
+
+    <Button
+        android:id="@+id/Down"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="-" />
+>>>>>>> 55ad241b10c1aa6f284d4ad34181bc7fbd63b84e
 
 </LinearLayout>
