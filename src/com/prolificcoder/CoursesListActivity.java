@@ -1,5 +1,6 @@
 package com.prolificcoder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Dialog;
@@ -55,15 +56,27 @@ public class CoursesListActivity extends ListActivity{
 		@Override
 		protected void onPostExecute(Void result) {
 			// Put the list of todos into the list view
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(CoursesListActivity.this,
-					R.layout.course_row);
-			for (ParseObject todo : courses) {
-				adapter.add((String) todo.get("name"));
+			CourseRow courseRows[] =  new CourseRow[courses.size()];
+			int i = 0;
+			for (ParseObject course : courses) {
+				courseRows[i] = (new CourseRow(course.getString("name"), this.average(course.getInt("upvote"),course.getInt("downvote"))));
+				i++;
 			}
-			setListAdapter(adapter);
+			
+			CourseRowAdaptor adaptor = new CourseRowAdaptor(CoursesListActivity.this, R.layout.course_row, courseRows);
+
 			CoursesListActivity.this.progressDialog.dismiss();
-			TextView empty = (TextView) findViewById(android.R.id.empty);
-			empty.setVisibility(View.VISIBLE);
+
+			ListView listView1 = (ListView)findViewById(android.R.id.list);
+			listView1.setAdapter(adaptor);
+			listView1.setVisibility(View.VISIBLE);
+		}
+
+		private Integer average(int upvotes, int downvotes) {
+			int total = upvotes + downvotes;
+			if (total == 0)
+				return 0;
+			return (int) (((float)upvotes/total) * 100);
 		}
 	}
 	
