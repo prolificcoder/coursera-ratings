@@ -28,14 +28,14 @@ public class CourseDetailActivity extends Activity {
 		int downvote = i.getIntExtra("downvote", 0);
 		String url = i.getStringExtra("url");
 		
-		TextView nameText = (TextView)findViewById(R.id.Name);
+		TextView nameText = (TextView)findViewById(R.id.CourseName);
 		nameText.setText(name);
 		
 		TextView urlText = (TextView)findViewById(R.id.Url);
 		urlText.setText((url != null) ? url : "None specified");
 		
 		TextView ratingText = (TextView)findViewById(R.id.Rating);
-		nameText.setText(Helpers.average(upvote, downvote).toString());
+		ratingText.setText(Helpers.average(upvote, downvote).toString());
 		
 	}
 	
