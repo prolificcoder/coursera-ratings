@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -91,6 +92,10 @@ public class CoursesListActivity extends ListActivity{
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		Intent i = new Intent(this, CourseDetailActivity.class);
+		String name = courses.get(position).getString("name").toString();
+		int upvote = courses.get(position).getInt("upvote");
+		int downvote = courses.get(position).getInt("downvote");
+		String url = courses.get(position).getString("url");
 		i.putExtra("name", courses.get(position).getString("name").toString());
 		i.putExtra("upvote", courses.get(position).getInt("upvote"));
 		i.putExtra("downvote", courses.get(position).getInt("downvote"));
