@@ -34,24 +34,9 @@ public class CourseDetailActivity extends Activity {
 
 		TextView ratingText = (TextView) findViewById(R.id.Rating);
 		ratingText.setText(Helpers.average(upvote, downvote).toString());
-<<<<<<< HEAD
-		
-		final ImageButton buttonUp = (ImageButton) findViewById(R.id.Up);
-		buttonUp.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                
-            }
-        });
-		
-        final ImageButton buttonDown = (ImageButton) findViewById(R.id.Down);
-        buttonDown.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                
-            }
-        });
-=======
+	
 
-		final Button buttonUp = (Button) findViewById(R.id.Up);
+		final ImageButton buttonUp = (ImageButton) findViewById(R.id.Up);
 		buttonUp.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				ParseQuery<ParseObject> query = ParseQuery.getQuery("courses");
@@ -70,7 +55,7 @@ public class CourseDetailActivity extends Activity {
 			}
 		});
 
-		final Button buttonDown = (Button) findViewById(R.id.Down);
+		final ImageButton buttonDown = (ImageButton) findViewById(R.id.Down);
 		buttonDown.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				ParseQuery<ParseObject> query = ParseQuery.getQuery("courses");
@@ -88,6 +73,5 @@ public class CourseDetailActivity extends Activity {
 				});
 			}
 		});
->>>>>>> 55ad241b10c1aa6f284d4ad34181bc7fbd63b84e
 	}
 }
