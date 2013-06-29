@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -33,11 +32,11 @@ public class CourseDetailActivity extends Activity {
 		urlText.setText((url != null) ? url : "None specified");
 
 		TextView ratingText = (TextView) findViewById(R.id.Rating);
-		ratingText.setText(Helpers.average(upvote, downvote).toString());
+		ratingText.setText(Helpers.average(upvote, downvote).toString() + "%");
+
 		
 		TextView descText = (TextView) findViewById(R.id.Description);
 		descText.setText(i.getStringExtra("desc"));
-	
 
 		final ImageButton buttonUp = (ImageButton) findViewById(R.id.Up);
 		buttonUp.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +51,8 @@ public class CourseDetailActivity extends Activity {
 					      Log.d("score", "Retrieved the object.");
 					      object.increment("upvote");
 					      object.saveInBackground();
+					      TextView ratingText = (TextView) findViewById(R.id.Rating);
+					      ratingText.setText(Helpers.average(object.getInt("upvote"), object.getInt("downvote")).toString()+"%");
 					    }
 					  }
 				});
@@ -71,6 +72,8 @@ public class CourseDetailActivity extends Activity {
 					      Log.d("score", "Retrieved the object.");
 					       object.increment("downvote");
 					       object.saveInBackground();
+					       TextView ratingText = (TextView) findViewById(R.id.Rating);
+					       ratingText.setText(Helpers.average(object.getInt("upvote"), object.getInt("downvote")).toString()+"%");
 					    }
 					  }
 				});
