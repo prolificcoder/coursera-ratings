@@ -34,6 +34,9 @@ public class CourseDetailActivity extends Activity {
 
 		TextView ratingText = (TextView) findViewById(R.id.Rating);
 		ratingText.setText(Helpers.average(upvote, downvote).toString());
+		
+		TextView descText = (TextView) findViewById(R.id.Description);
+		descText.setText(i.getStringExtra("desc"));
 	
 
 		final ImageButton buttonUp = (ImageButton) findViewById(R.id.Up);

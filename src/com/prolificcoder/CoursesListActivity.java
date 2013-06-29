@@ -107,14 +107,11 @@ public class CoursesListActivity extends ListActivity{
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		Intent i = new Intent(this, CourseDetailActivity.class);
-		String name = courses.get(position).getString("name").toString();
-		int upvote = courses.get(position).getInt("upvote");
-		int downvote = courses.get(position).getInt("downvote");
-		String url = courses.get(position).getString("url");
 		i.putExtra("name", courses.get(position).getString("name").toString());
 		i.putExtra("upvote", courses.get(position).getInt("upvote"));
 		i.putExtra("downvote", courses.get(position).getInt("downvote"));
 		i.putExtra("url", courses.get(position).getString("url"));
+		i.putExtra("desc", courses.get(position).getString("Description"));
 		startActivityForResult(i, ACTIVITY_DETAIL);
 	}
 }

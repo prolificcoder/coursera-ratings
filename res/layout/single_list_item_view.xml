@@ -7,7 +7,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.38"
         android:orientation="horizontal" >
 
         <TextView
@@ -38,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dip"
                 android:textColor="#ffffff"
-                android:textSize="25dip"
+                android:textSize="15dip"
                 android:textStyle="bold" />
 
             <ImageButton
@@ -52,12 +51,16 @@
 
     <TextView
         android:id="@+id/Url"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.98"
-        android:padding="10dip"
         android:textColor="#ffffff"
-        android:textSize="25dip"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
         android:textStyle="bold" />
 
 </LinearLayout>
