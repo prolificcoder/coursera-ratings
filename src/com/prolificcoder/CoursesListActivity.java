@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -71,6 +72,23 @@ public class CoursesListActivity extends ListActivity{
 		}
 
 		
+	}
+	@Override
+	public void onRestart()
+	{
+		super.onRestart();
+		new RemoteDataTask().execute();
+		for (ParseObject course : courses) {
+             course.fetchInBackground(new GetCallback<ParseObject>() {
+			  public void done(ParseObject object, ParseException e) {
+			    if (e == null) {
+			      // Success!
+			    } else {
+			      // Failure!
+			    }
+			  }
+			});
+		}
 	}
 	
 	@Override
