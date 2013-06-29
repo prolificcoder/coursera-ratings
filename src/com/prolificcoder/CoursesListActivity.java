@@ -59,7 +59,7 @@ public class CoursesListActivity extends ListActivity{
 			CourseRow courseRows[] =  new CourseRow[courses.size()];
 			int i = 0;
 			for (ParseObject course : courses) {
-				courseRows[i] = (new CourseRow(course.getString("name"), this.average(course.getInt("upvote"),course.getInt("downvote"))));
+				courseRows[i] = (new CourseRow(course.getString("name"), Helpers.average(course.getInt("upvote"),course.getInt("downvote"))));
 				i++;
 			}
 			
@@ -72,12 +72,7 @@ public class CoursesListActivity extends ListActivity{
 			listView1.setVisibility(View.VISIBLE);
 		}
 
-		private Integer average(int upvotes, int downvotes) {
-			int total = upvotes + downvotes;
-			if (total == 0)
-				return 0;
-			return (int) (((float)upvotes/total) * 100);
-		}
+		
 	}
 	
 	@Override
@@ -95,10 +90,11 @@ public class CoursesListActivity extends ListActivity{
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		Intent i = new Intent(this, CourseDetail.class);
-
+		Intent i = new Intent(this, CourseDetailActivity.class);
 		i.putExtra("name", courses.get(position).getString("name").toString());
-		i.putExtra("position", position);
+		i.putExtra("upvote", courses.get(position).getInt("upvote"));
+		i.putExtra("downvote", courses.get(position).getInt("downvote"));
+		i.putExtra("url", courses.get(position).getString("url"));
 		startActivityForResult(i, ACTIVITY_DETAIL);
 	}
 }
