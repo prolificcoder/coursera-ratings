@@ -29,7 +29,7 @@ public class CoursesListActivity extends ListActivity{
 		protected Void doInBackground(Void... params) {
 			// Gets the current list of courses in sorted order
 			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("courses");
-			query.orderByDescending("_created_at");
+			query.orderByDescending("upvote");
 
 			try {
 				courses = query.find();
