@@ -38,6 +38,4 @@ public class CourseDetailActivity extends Activity {
 		ratingText.setText(Helpers.average(upvote, downvote).toString());
 		
 	}
-	
-
 }
