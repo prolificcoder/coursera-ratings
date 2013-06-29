@@ -33,7 +33,7 @@ public class CourseDetailActivity extends Activity {
 		urlText.setText((url != null) ? url : "None specified");
 
 		TextView ratingText = (TextView) findViewById(R.id.Rating);
-		ratingText.setText(Helpers.average(upvote, downvote).toString());
+		ratingText.setText(Helpers.average(upvote, downvote).toString() + "%");
 	
 
 		final ImageButton buttonUp = (ImageButton) findViewById(R.id.Up);
@@ -49,6 +49,8 @@ public class CourseDetailActivity extends Activity {
 					      Log.d("score", "Retrieved the object.");
 					      object.increment("upvote");
 					      object.saveInBackground();
+					      TextView ratingText = (TextView) findViewById(R.id.Rating);
+					      ratingText.setText(Helpers.average(object.getInt("upvote"), object.getInt("downvote")).toString()+"%");
 					    }
 					  }
 				});
@@ -68,6 +70,8 @@ public class CourseDetailActivity extends Activity {
 					      Log.d("score", "Retrieved the object.");
 					       object.increment("downvote");
 					       object.saveInBackground();
+					       TextView ratingText = (TextView) findViewById(R.id.Rating);
+					       ratingText.setText(Helpers.average(object.getInt("upvote"), object.getInt("downvote")).toString()+"%");
 					    }
 					  }
 				});
