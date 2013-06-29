@@ -8,12 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,11 +18,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 public class CoursesListActivity extends ListActivity{
-	private static final int ACTIVITY_CREATE = 0;
-	private static final int ACTIVITY_EDIT = 1;
+	private static final int ACTIVITY_DETAIL = 1;
 
-	public static final int INSERT_ID = Menu.FIRST;
-	private static final int DELETE_ID = Menu.FIRST + 1;
 
 	private List<ParseObject> courses;
 	private Dialog progressDialog;
@@ -94,6 +86,6 @@ public class CoursesListActivity extends ListActivity{
 
 		i.putExtra("name", courses.get(position).getString("name").toString());
 		i.putExtra("position", position);
-		startActivityForResult(i, ACTIVITY_EDIT);
+		startActivityForResult(i, ACTIVITY_DETAIL);
 	}
 }
