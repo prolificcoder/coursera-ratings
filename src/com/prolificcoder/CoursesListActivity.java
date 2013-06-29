@@ -1,0 +1,89 @@
+package com.prolificcoder;
+
+import java.util.List;
+
+import android.app.Dialog;
+import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+public class CoursesListActivity extends ListActivity{
+	private static final int ACTIVITY_CREATE = 0;
+	private static final int ACTIVITY_EDIT = 1;
+
+	public static final int INSERT_ID = Menu.FIRST;
+	private static final int DELETE_ID = Menu.FIRST + 1;
+
+	private List<ParseObject> courses;
+	private Dialog progressDialog;
+	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
+		
+		// Override this method to do custom remote calls
+		protected Void doInBackground(Void... params) {
+			// Gets the current list of todos in sorted order
+			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("courses");
+			query.orderByDescending("_created_at");
+
+			try {
+				courses = query.find();
+			} catch (ParseException e) {
+
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			ToDoListActivity.this.progressDialog = ProgressDialog.show(ToDoListActivity.this, "",
+					"Loading...", true);
+			super.onPreExecute();
+		}
+
+		@Override
+		protected void onProgressUpdate(Void... values) {
+
+			super.onProgressUpdate(values);
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			// Put the list of todos into the list view
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(ToDoListActivity.this,
+					R.layout.todo_row);
+			for (ParseObject todo : todos) {
+				adapter.add((String) todo.get("name"));
+			}
+			setListAdapter(adapter);
+			ToDoListActivity.this.progressDialog.dismiss();
+			TextView empty = (TextView) findViewById(android.R.id.empty);
+			empty.setVisibility(View.VISIBLE);
+		}
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+
+		TextView empty = (TextView) findViewById(android.R.id.empty);
+		empty.setVisibility(View.INVISIBLE);
+
+		new RemoteDataTask().execute();
+		registerForContextMenu(getListView());
+	}
+}
