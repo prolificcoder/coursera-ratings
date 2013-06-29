@@ -3,41 +3,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/CourseName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:textColor="#ffffff"
+        android:textSize="25dip"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Url"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:textColor="#ffffff"
+        android:textSize="25dip"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Rating"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:textColor="#ffffff"
+        android:textSize="25dip"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/Up"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:src="@drawable/thumb_up"
+        />
+
+    <ImageButton
+        android:id="@+id/Down"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src = "@drawable/thumb_down"/>
     
-  <TextView android:id="@+id/CourseName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25dip"
-            android:textStyle="bold"
-            android:padding="10dip"
-            android:textColor="#ffffff"/> 
-            
-    <TextView android:id="@+id/Url"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25dip"
-            android:textStyle="bold"
-            android:padding="10dip"
-            android:textColor="#ffffff"/> 
-            
-      <TextView android:id="@+id/Rating"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25dip"
-            android:textStyle="bold"
-            android:padding="10dip"
-            android:textColor="#ffffff"/> 
-                   <Button
-	           android:id="@+id/Up"
-	           android:layout_width="fill_parent"
-	           android:layout_height="wrap_content"
 
-	           android:text="+" />
-
-	       <Button
-	           android:id="@+id/Down"
-	           android:layout_width="fill_parent"
-	           android:layout_height="wrap_content"
-
-	           android:text="-" />
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class CourseDetailActivity extends Activity {
@@ -28,14 +29,14 @@ public class CourseDetailActivity extends Activity {
 		TextView ratingText = (TextView)findViewById(R.id.Rating);
 		ratingText.setText(Helpers.average(upvote, downvote).toString());
 		
-		final Button buttonUp = (Button) findViewById(R.id.Up);
+		final ImageButton buttonUp = (ImageButton) findViewById(R.id.Up);
 		buttonUp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 
             }
         });
 		
-        final Button buttonDown = (Button) findViewById(R.id.Down);
+        final ImageButton buttonDown = (ImageButton) findViewById(R.id.Down);
         buttonDown.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 
