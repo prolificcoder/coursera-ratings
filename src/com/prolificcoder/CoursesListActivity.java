@@ -1,5 +1,6 @@
 package com.prolificcoder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Dialog;
@@ -8,7 +9,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,18 +21,23 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-public class CoursesListActivity extends ListActivity{
+public class CoursesListActivity extends ListActivity {
 	private static final int ACTIVITY_DETAIL = 1;
 
-
+	private EditText filterText = null;
+	CourseRowAdaptor adaptor = null;
 	private List<ParseObject> courses;
 	private Dialog progressDialog;
+	CourseRow courseRows[];
+	ListView listView1;
+
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
-		
+
 		// Override this method to do custom remote calls
 		protected Void doInBackground(Void... params) {
 			// Gets the current list of courses in sorted order
-			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("courses");
+			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+					"courses");
 			query.orderByDescending("upvote");
 
 			try {
@@ -41,8 +50,8 @@ public class CoursesListActivity extends ListActivity{
 
 		@Override
 		protected void onPreExecute() {
-			CoursesListActivity.this.progressDialog = ProgressDialog.show(CoursesListActivity.this, "",
-					"Loading...", true);
+			CoursesListActivity.this.progressDialog = ProgressDialog.show(
+					CoursesListActivity.this, "", "Loading...", true);
 			super.onPreExecute();
 		}
 
@@ -55,42 +64,91 @@ public class CoursesListActivity extends ListActivity{
 		@Override
 		protected void onPostExecute(Void result) {
 			// Put the list of todos into the list view
-			CourseRow courseRows[] =  new CourseRow[courses.size()];
+			courseRows = new CourseRow[courses.size()];
 			int i = 0;
 			for (ParseObject course : courses) {
-				courseRows[i] = (new CourseRow(course.getString("name"), Helpers.average(course.getInt("upvote"),course.getInt("downvote"))));
+				courseRows[i] = (new CourseRow(course.getString("name"),
+						Helpers.average(course.getInt("upvote"),
+								course.getInt("downvote"))));
 				i++;
 			}
-			
-			CourseRowAdaptor adaptor = new CourseRowAdaptor(CoursesListActivity.this, R.layout.course_row, courseRows);
+
+			adaptor = new CourseRowAdaptor(CoursesListActivity.this,
+					R.layout.course_row, courseRows);
 
 			CoursesListActivity.this.progressDialog.dismiss();
+			filterText = (EditText) findViewById(R.id.search_box);
+			filterText.addTextChangedListener(filterTextWatcher);
 
-			ListView listView1 = (ListView)findViewById(android.R.id.list);
+			listView1 = (ListView) findViewById(android.R.id.list);
 			listView1.setAdapter(adaptor);
 			listView1.setVisibility(View.VISIBLE);
 		}
 
-		
 	}
+
 	@Override
-	public void onRestart()
-	{
+	protected void onDestroy() {
+		super.onDestroy();
+		filterText.removeTextChangedListener(filterTextWatcher);
+	}
+
+	private TextWatcher filterTextWatcher = new TextWatcher() {
+
+		public void afterTextChanged(Editable s) {
+		}
+
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+		}
+
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			int textlength = filterText.getText().length();
+			ArrayList<CourseRow> array_sort = new ArrayList<CourseRow>();
+			array_sort.clear();
+			for (int i = 0; i < courseRows.length; i++) {
+				if (textlength <= courseRows[i].Name.length()) {
+					if (filterText
+							.getText()
+							.toString()
+							.equalsIgnoreCase(
+									(String) courseRows[i].Name.subSequence(0,
+											textlength))) {
+						array_sort.add(courseRows[i]);
+					}
+				}
+			}
+			CourseRow[] filtered = new CourseRow[array_sort.size()];
+			int i = 0;
+			for (CourseRow course: array_sort)
+			{
+				filtered[i]=(CourseRow) course;
+				i++;
+			}			
+			listView1.setAdapter(new CourseRowAdaptor(CoursesListActivity.this,
+					R.layout.course_row, filtered));
+		}
+
+	};
+
+	@Override
+	public void onRestart() {
 		super.onRestart();
 		new RemoteDataTask().execute();
 		for (ParseObject course : courses) {
-             course.fetchInBackground(new GetCallback<ParseObject>() {
-			  public void done(ParseObject object, ParseException e) {
-			    if (e == null) {
-			      // Success!
-			    } else {
-			      // Failure!
-			    }
-			  }
+			course.fetchInBackground(new GetCallback<ParseObject>() {
+				public void done(ParseObject object, ParseException e) {
+					if (e == null) {
+						// Success!
+					} else {
+						// Failure!
+					}
+				}
 			});
 		}
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -102,7 +160,7 @@ public class CoursesListActivity extends ListActivity{
 		new RemoteDataTask().execute();
 		registerForContextMenu(getListView());
 	}
-	
+
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
