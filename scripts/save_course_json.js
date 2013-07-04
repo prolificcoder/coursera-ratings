@@ -23,7 +23,8 @@ function json_save(course) {
         local_course.set("name", course.name);
         local_course.set("Description", course.about_the_course);
         local_course.set("work_load", course.estimated_class_workload);
-
+        local_course.set("University", course.universities[0].short_name);
+        local_course.set("Categories", extract_short_name(course.categories));
         var query = new Parse.Query(Courses);
         query.equalTo("name", course.name);
         query.count({
