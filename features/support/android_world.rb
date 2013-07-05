@@ -23,6 +23,9 @@ class AndroidWorld
     (s_text element_text).click
   end
 
+  def course_details
+    self.class::CourseDetails
+  end
 
 end
 
