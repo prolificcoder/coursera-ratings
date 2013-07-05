@@ -63,7 +63,7 @@ public class CoursesListActivity extends ListActivity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			// Put the list of todos into the list view
+			// Put the list of courses into the list view
 			courseRows = new CourseRow[courses.size()];
 			int i = 0;
 			for (ParseObject course : courses) {

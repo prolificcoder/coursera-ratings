@@ -29,7 +29,8 @@
                 android:id="@+id/Up"
                 android:layout_width="50dip"
                 android:layout_height="50dip"
-                android:src="@drawable/thumb_up" />
+                android:src="@drawable/thumb_up" 
+                android:contentDescription="up_vote" />
 
             <TextView
                 android:id="@+id/Rating"
@@ -38,13 +39,15 @@
                 android:padding="10dip"
                 android:textColor="#ffffff"
                 android:textSize="15dip"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:contentDescription="rating"  />
 
             <ImageButton
                 android:id="@+id/Down"
                 android:layout_width="50dip"
                 android:layout_height="50dip"
-                android:src="@drawable/thumb_down" />
+                android:src="@drawable/thumb_down" 
+                android:contentDescription="down_vote"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -55,13 +58,14 @@
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
         android:autoLink="web"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:contentDescription="course_url" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description"
+        android:text="Decription"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -71,6 +75,7 @@
         android:textColor="#ffffff"
         android:textStyle="bold"     
          android:padding="1dp"
-        android:background="@drawable/border_white"  />
+        android:background="@drawable/border_white"  
+        android:contentDescription="course_description"/>
 
 </LinearLayout>
