@@ -1,0 +1,7 @@
+{
+    "name": "scripts",
+    "dependencies": {
+        "request": "~2.21.0",
+        "Parse": "~1.2.7"
+    }
+}
