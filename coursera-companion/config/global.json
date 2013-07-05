@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "_default": {
+            "link": "coursera-companion"
+        }, 
+        "coursera-companion": {
+            "applicationId": "yCuUqabpEb7BHYRtits6iaOs740jpon1Eq6VhQCz", 
+            "masterKey": "GPxPibULRJqKAZ0ik2LNG3nWBozfxUeS5C0Mtsw6"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.8"
+    }
+}
