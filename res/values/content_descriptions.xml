@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+  <string name="up_vote">Up Vote</string>
+  <string name="down_vote">Down Vote</string>
+  <string name="rating">Rating</string>
+  <string name="course_url">Course Url</string>
+  <string name="course_description">Course Description</string>
 </resources>

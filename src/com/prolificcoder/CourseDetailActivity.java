@@ -27,6 +27,7 @@ public class CourseDetailActivity extends Activity {
 
 		TextView nameText = (TextView) findViewById(R.id.CourseName);
 		nameText.setText(courseName);
+		nameText.setContentDescription(courseName);
 
 		TextView urlText = (TextView) findViewById(R.id.Url);
 		urlText.setText((url != null) ? url : "None specified");
