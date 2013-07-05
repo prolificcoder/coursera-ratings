@@ -2,7 +2,6 @@ package com.prolificcoder;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
-import com.parse.ParseException;
 
 import com.parse.ParseUser;
 
@@ -18,7 +17,7 @@ public class CoursesListApplication extends Application {
 
 		try {
 			ParseUser.logIn("satya", "pass");
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
