@@ -25,11 +25,11 @@ public class CategoryListFragment extends ListFragment{
 	private static final int ACTIVITY_DETAIL = 1;
 
 	private EditText filterText = null;
-	CourseRowAdaptor adaptor = null;
 	private List<ParseObject> categories;
 	private Dialog progressDialog;
 	ArrayList<String> categoryRows;
 	ListView listView1;
+	View rootView;
 
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 
@@ -70,10 +70,10 @@ public class CategoryListFragment extends ListFragment{
 
 			ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, categoryRows);
 			CategoryListFragment.this.progressDialog.dismiss();
-			filterText = (EditText) getActivity().findViewById(R.id.search_box);
+			filterText = (EditText) rootView.findViewById(R.id.category_search_box);
 			filterText.addTextChangedListener(filterTextWatcher);
 
-			listView1 = (ListView) getActivity().findViewById(android.R.id.list);
+			listView1 = (ListView) rootView.findViewById(android.R.id.list);
 			listView1.setAdapter(arrayAdapter);
 			listView1.setVisibility(View.VISIBLE);
 		}
@@ -82,7 +82,8 @@ public class CategoryListFragment extends ListFragment{
 	@Override
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container,
            Bundle savedInstanceState) {
-       View rootView = inflater.inflate(R.layout.fragment_category_list, container, false);
+	   super.onCreateView(inflater, container, savedInstanceState);	
+       rootView = inflater.inflate(R.layout.fragment_category_list, container, false);
        new RemoteDataTask().execute();
        return rootView;
 	}

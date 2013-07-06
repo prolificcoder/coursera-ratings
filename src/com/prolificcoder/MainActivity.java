@@ -116,16 +116,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         @Override
         public Fragment getItem(int i) {
+        	Fragment f=null;
             switch (i) {
                 case 0:
                     // The first section of the app is the most interesting -- it offers
                     // a launchpad into the other demonstrations in this example application.
-                    return new CourseListFragment();
-
-                default:
-                	return new CategoryListFragment();
-                	
+                    f = new CourseListFragment();
+                	break;
+                case 1:
+                	f = new CategoryListFragment(); 
+                	break;
             }
+            return f;
         }
 
         @Override
@@ -135,7 +137,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Section " + (position + 1);
+            switch(position){
+            	case 0: 
+            		return "Courses";
+            	case 1:
+            		return "Categories";
+            	default:
+            		return "";
+            }
         }
     }
     
