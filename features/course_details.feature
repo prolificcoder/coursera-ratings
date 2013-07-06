@@ -2,6 +2,7 @@ Feature: As a coursera user I'd like to see see more details
   about a course that I am interested in
 
   Background: Course details page
+    Given That I open coursera application on my phone
     Given That I am on Startup Engineering course details view
 
   Scenario: Should have information related to the course

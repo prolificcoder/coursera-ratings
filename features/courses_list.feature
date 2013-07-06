@@ -20,12 +20,8 @@ Feature: As a coursera user/enthusiast, I'd
     | Input Text          | Output Text         | Negative Text |
     | Public Speaking     | Public Speaking     | Startup Engineering |
     | Startup Engineering | Startup Engineering | Public Speaking |
-
-
-  Scenario: Courses can be searched case-insensitively
-    Given I enter staRTup engiNEering in search box
-    Then I should see Startup Engineering course
-      But I should not see Public Speaking course
+    | pubLic speAKing     | Public Speaking     | Startup Engineering |
+    | StARtup EngineeRIng | Startup Engineering | Public Speaking |
 
   Scenario: Should render course details on clicking a course
     Given I click on startup engineering

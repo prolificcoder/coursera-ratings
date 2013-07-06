@@ -28,5 +28,9 @@ class AndroidWorld
     self.class::CourseDetails
   end
 
+  def course_list
+    self.class:CourseList
+  end
+
 end
 
