@@ -20,3 +20,6 @@ end
 Given(/^I click on (.*)$/) do |course_name|
   course_list.course(course_name).click
 end
+When(/^I should also see (.*) rating$/) do |course_name|
+  course_list.rating(course_name)
+end

@@ -6,7 +6,7 @@ Feature: As a coursera user/enthusiast, I'd
 
   Scenario: All the courses on coursera are listed
     Then I should see all the courses tha are available on coursera
-      And I should also see course rating
+      And I should also see Startup Engineering rating
 
   Scenario: Courses are sorted by number of votes
     Then I should see courses sorted by number of votes

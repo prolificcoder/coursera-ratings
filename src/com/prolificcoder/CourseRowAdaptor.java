@@ -42,9 +42,11 @@ public class CourseRowAdaptor extends ArrayAdapter<CourseRow>{
 	        }
 	        
 	        CourseRow course = data[position];
+	       
 	        holder.Name.setText(course.Name);
 	        holder.Name.setContentDescription(course.Name);
 	        holder.Rating.setText(course.Rating.toString());
+	        holder.Rating.setContentDescription(course.Name + " rating");
 	        return row;
 	    }
 	    
