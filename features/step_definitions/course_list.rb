@@ -12,6 +12,11 @@ end
 Then(/^I should see (.*) course$/) do |course_name|
   find_element(:name, course_name )
 end
+
 When(/^I should not see (.*) course$/) do |course_name|
   exists { find_element(:name, course_name ) }.must_equal false
+end
+
+Given(/^I click on (.*)$/) do |course_name|
+  course_list.course(course_name).click
 end

@@ -13,7 +13,7 @@ Feature: As a coursera user/enthusiast, I'd
       But I should not see courses sorted by rating
 
   Scenario Outline: Courses can be searched with partial text or any case
-    Given I enter <Input Text>  in search box
+    Given I enter <Input Text> in search box
     Then I should see <Course Name> course
     But I should not see <Negative Text> course
   Examples:
@@ -24,5 +24,6 @@ Feature: As a coursera user/enthusiast, I'd
     | aRTtup           | Startup Engineering | Public Speaking |
 
   Scenario: Should render course details on clicking a course
-    Given I click on startup engineering
-    Then I should see Startup Engineering course details
+    Given I enter Machine Learning in search box
+    Given I click on Machine Learning
+    Then I should see Machine Learning course details
