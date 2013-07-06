@@ -9,6 +9,6 @@ When(/^I should see upvote and downvote$/) do
   course_details.down_vote
 end
 Given(/^That I am on (.*) course details view$/) do |course_name|
-  binding.pry
+  wait_true {not exists { s_text "Loading"} }
   (s_text course_name).click
 end
