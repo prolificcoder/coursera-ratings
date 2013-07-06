@@ -21,11 +21,11 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-public class CategoryListFragment extends ListFragment{
+public class UniversityListFragment extends ListFragment{
 	//private static final int ACTIVITY_DETAIL = 1;
 
 	private EditText filterText = null;
-	private List<ParseObject> categories;
+	private List<ParseObject> universities;
 	private Dialog progressDialog;
 	ArrayList<String> categoryRows;
 	ListView listView1;
@@ -37,10 +37,10 @@ public class CategoryListFragment extends ListFragment{
 		protected Void doInBackground(Void... params) {
 			// Gets the current list of courses in sorted order
 			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-					"categories_te");
+					"universities_te");
 
 			try {
-				categories = query.find();
+				universities = query.find();
 			} catch (ParseException e) {
 
 			}
@@ -49,7 +49,7 @@ public class CategoryListFragment extends ListFragment{
 
 		@Override
 		protected void onPreExecute() {
-			CategoryListFragment.this.progressDialog = ProgressDialog.show(
+			UniversityListFragment.this.progressDialog = ProgressDialog.show(
 					getActivity(), "", "Loading...", true);
 			super.onPreExecute();
 		}
@@ -64,13 +64,13 @@ public class CategoryListFragment extends ListFragment{
 		protected void onPostExecute(Void result) {
 			// Put the list of todos into the list view
 			categoryRows = new ArrayList<String>();
-			for (ParseObject category : categories) {
-				categoryRows.add(category.getString("name"));
+			for (ParseObject university : universities) {
+				categoryRows.add(university.getString("name"));
 			}
 
 			ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, categoryRows);
-			CategoryListFragment.this.progressDialog.dismiss();
-			filterText = (EditText) rootView.findViewById(R.id.category_search_box);
+			UniversityListFragment.this.progressDialog.dismiss();
+			filterText = (EditText) rootView.findViewById(R.id.university_search_box);
 			filterText.addTextChangedListener(filterTextWatcher);
 
 			listView1 = (ListView) rootView.findViewById(android.R.id.list);
@@ -83,7 +83,7 @@ public class CategoryListFragment extends ListFragment{
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container,
            Bundle savedInstanceState) {
 	   super.onCreateView(inflater, container, savedInstanceState);	
-       rootView = inflater.inflate(R.layout.fragment_category_list, container, false);
+       rootView = inflater.inflate(R.layout.fragment_university_list, container, false);
        new RemoteDataTask().execute();
        return rootView;
 	}
