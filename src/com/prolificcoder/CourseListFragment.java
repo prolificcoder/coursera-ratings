@@ -4,24 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-public class CoursesListActivity extends ListActivity {
+public class CourseListFragment extends ListFragment {
 	private static final int ACTIVITY_DETAIL = 1;
 
 	private EditText filterText = null;
@@ -50,8 +51,8 @@ public class CoursesListActivity extends ListActivity {
 
 		@Override
 		protected void onPreExecute() {
-			CoursesListActivity.this.progressDialog = ProgressDialog.show(
-					CoursesListActivity.this, "", "Loading...", true);
+			CourseListFragment.this.progressDialog = ProgressDialog.show(
+					getActivity(), "", "Loading...", true);
 			super.onPreExecute();
 		}
 
@@ -73,14 +74,14 @@ public class CoursesListActivity extends ListActivity {
 				i++;
 			}
 
-			adaptor = new CourseRowAdaptor(CoursesListActivity.this,
+			adaptor = new CourseRowAdaptor(getActivity(),
 					R.layout.course_row, courseRows);
 
-			CoursesListActivity.this.progressDialog.dismiss();
-			filterText = (EditText) findViewById(R.id.search_box);
+			CourseListFragment.this.progressDialog.dismiss();
+			filterText = (EditText) getActivity().findViewById(R.id.search_box);
 			filterText.addTextChangedListener(filterTextWatcher);
 
-			listView1 = (ListView) findViewById(android.R.id.list);
+			listView1 = (ListView) getActivity().findViewById(android.R.id.list);
 			listView1.setAdapter(adaptor);
 			listView1.setVisibility(View.VISIBLE);
 		}
@@ -88,7 +89,7 @@ public class CoursesListActivity extends ListActivity {
 	}
 
 	@Override
-	protected void onDestroy() {
+	public void onDestroy() {
 		super.onDestroy();
 		filterText.removeTextChangedListener(filterTextWatcher);
 	}
@@ -126,50 +127,45 @@ public class CoursesListActivity extends ListActivity {
 				filtered[i]=(CourseRow) course;
 				i++;
 			}			
-			listView1.setAdapter(new CourseRowAdaptor(CoursesListActivity.this,
+			listView1.setAdapter(new CourseRowAdaptor(getActivity(),
 					R.layout.course_row, filtered));
 		}
 
 	};
 
+//	@Override
+//	public void onResume() {
+//		super.onResume();
+//		new RemoteDataTask().execute();
+//		for (ParseObject course : courses) {
+//			course.fetchInBackground(new GetCallback<ParseObject>() {
+//				public void done(ParseObject object, ParseException e) {
+//					if (e == null) {
+//						// Success!
+//					} else {
+//						// Failure!
+//					}
+//				}
+//			});
+//		}
+//	}
 	@Override
-	public void onRestart() {
-		super.onRestart();
-		new RemoteDataTask().execute();
-		for (ParseObject course : courses) {
-			course.fetchInBackground(new GetCallback<ParseObject>() {
-				public void done(ParseObject object, ParseException e) {
-					if (e == null) {
-						// Success!
-					} else {
-						// Failure!
-					}
-				}
-			});
-		}
+	 public View onCreateView(LayoutInflater inflater, ViewGroup container,
+          Bundle savedInstanceState) {
+      View rootView = inflater.inflate(R.layout.fragment_category_list, container, false);
+      new RemoteDataTask().execute();
+      return rootView;
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-
-		TextView empty = (TextView) findViewById(android.R.id.empty);
-		empty.setVisibility(View.INVISIBLE);
-
-		new RemoteDataTask().execute();
-		registerForContextMenu(getListView());
-	}
-
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		Intent i = new Intent(this, CourseDetailActivity.class);
-		i.putExtra("name", courses.get(position).getString("name").toString());
-		i.putExtra("upvote", courses.get(position).getInt("upvote"));
-		i.putExtra("downvote", courses.get(position).getInt("downvote"));
-		i.putExtra("url", courses.get(position).getString("url"));
-		i.putExtra("desc", courses.get(position).getString("Description"));
-		startActivityForResult(i, ACTIVITY_DETAIL);
+	public void onListItemClick(ListView l, View v, int position, long id) {
+//		super.onListItemClick(l, v, position, id);
+//		Intent i = new Intent(this, CourseDetailActivity.class);
+//		i.putExtra("name", courses.get(position).getString("name").toString());
+//		i.putExtra("upvote", courses.get(position).getInt("upvote"));
+//		i.putExtra("downvote", courses.get(position).getInt("downvote"));
+//		i.putExtra("url", courses.get(position).getString("url"));
+//		i.putExtra("desc", courses.get(position).getString("Description"));
+//		startActivityForResult(i, ACTIVITY_DETAIL);
 	}
 }
