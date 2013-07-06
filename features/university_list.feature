@@ -10,14 +10,14 @@ Feature: As a coursera user/enthusiast, I'd
 
   Scenario Outline: Universities can be searched
     Given I enter <Input Text>  in search box
-    Then I should see <Output Text> course
+    Then I should see <University Name> course
     But I should not see <Negative Text> course
   Examples:
-    | Input Text   | Output Text               | Negative Text |
-    | Stanford     | Stanford     | University of Washington |
-    | Washington   | University of Washington   | Stanford |
-    | stANfoRd     | Stanford     | University of Washington |
-    | WAShinGton   | University of Washington   | Stanford |
+    | Input Text   | University Name            | Negative Text |
+    | Stanford     | Stanford University        | University of Washington |
+    | Washington   | University of Washington   | Stanford University|
+    | stANfoRd     | Stanford University        | University of Washington |
+    | WAShinGton   | University of Washington   | Stanford University|
 
   Scenario: Should render university details on clicking a university
     Given I click on Stanford university

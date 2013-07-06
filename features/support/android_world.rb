@@ -29,7 +29,7 @@ class AndroidWorld
   end
 
   def course_list
-    self.class:CourseList
+    self.class::CourseList
   end
 
 end

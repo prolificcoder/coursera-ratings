@@ -12,16 +12,16 @@ Feature: As a coursera user/enthusiast, I'd
     Then I should see courses sorted by number of votes
       But I should not see courses sorted by rating
 
-  Scenario Outline: Courses can be searched
+  Scenario Outline: Courses can be searched with partial text or any case
     Given I enter <Input Text>  in search box
-    Then I should see <Output Text> course
+    Then I should see <Course Name> course
     But I should not see <Negative Text> course
   Examples:
-    | Input Text          | Output Text         | Negative Text |
-    | Public Speaking     | Public Speaking     | Startup Engineering |
-    | Startup Engineering | Startup Engineering | Public Speaking |
-    | pubLic speAKing     | Public Speaking     | Startup Engineering |
-    | StARtup EngineeRIng | Startup Engineering | Public Speaking |
+    | Input Text       | Course Name         | Negative Text |
+    | Public Speaking  | Public Speaking     | Startup Engineering |
+    | Engineering      | Startup Engineering | Public Speaking |
+    | pubLic speAKing  | Public Speaking     | Startup Engineering |
+    | aRTtup           | Startup Engineering | Public Speaking |
 
   Scenario: Should render course details on clicking a course
     Given I click on startup engineering
