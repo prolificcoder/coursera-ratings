@@ -9,21 +9,15 @@
         android:layout_height="match_parent">
 
 	<EditText
-           android:id="@+id/category_search_box"
+           android:id="@+id/university_search_box"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:ems="10" 
-           android:hint="search categories"/>
+           android:hint="search universities"/>
     <ListView
         android:id="@+id/android:list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <TextView
-        android:id="@+id/android:empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/empty" />
 
 </LinearLayout>
 </FrameLayout>

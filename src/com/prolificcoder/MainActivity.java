@@ -93,13 +93,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 case 1:
                 	f = new CategoryListFragment(); 
                 	break;
+                case 2:
+                	f = new UniversityListFragment();
             }
             return f;
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -109,6 +111,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             		return "Courses";
             	case 1:
             		return "Categories";
+            	case 2:
+            		return "Universities";
             	default:
             		return "";
             }
