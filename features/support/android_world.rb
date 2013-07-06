@@ -3,8 +3,8 @@ class AndroidWorld
     android_app = {
         :app_path => ANDROID_PATH,
         :app_package => 'com.prolificcoder',
-        :app_activity => '.CoursesListActivity',
-        :app_wait_activity => '.CoursesListActivity',
+        :app_activity => '.MainActivity',
+        :app_wait_activity => '.MainActivity',
         :app_name => ANDROID_APP_NAME
     }
     if(ENV['runon'] == 'sauce')
