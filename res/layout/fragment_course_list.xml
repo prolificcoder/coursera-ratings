@@ -9,13 +9,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 	<EditText
-           android:id="@+id/search_box"
+           android:id="@+id/course_search_box"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:ems="10" 
            android:hint="search courses"/>
     <ListView
-        android:id="@+id/android:list"
+        android:id="@android:id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

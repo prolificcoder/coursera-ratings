@@ -31,6 +31,7 @@ public class CourseListFragment extends ListFragment {
 	private Dialog progressDialog;
 	CourseRow courseRows[];
 	ListView listView1;
+	View rootView;
 
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 
@@ -78,10 +79,10 @@ public class CourseListFragment extends ListFragment {
 					R.layout.course_row, courseRows);
 
 			CourseListFragment.this.progressDialog.dismiss();
-			filterText = (EditText) getActivity().findViewById(R.id.search_box);
+			filterText = (EditText) rootView.findViewById(R.id.course_search_box);
 			filterText.addTextChangedListener(filterTextWatcher);
 
-			listView1 = (ListView) getActivity().findViewById(android.R.id.list);
+			listView1 = (ListView) rootView.findViewById(android.R.id.list);
 			listView1.setAdapter(adaptor);
 			listView1.setVisibility(View.VISIBLE);
 		}
@@ -151,10 +152,12 @@ public class CourseListFragment extends ListFragment {
 //	}
 	@Override
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container,
-          Bundle savedInstanceState) {
-      View rootView = inflater.inflate(R.layout.fragment_category_list, container, false);
-      new RemoteDataTask().execute();
-      return rootView;
+          Bundle savedInstanceState) {	
+		super.onCreateView(inflater, container, savedInstanceState);	
+		rootView = inflater.inflate(R.layout.fragment_course_list,
+				container, false);
+		new RemoteDataTask().execute();
+		return rootView;
 	}
 
 	@Override
