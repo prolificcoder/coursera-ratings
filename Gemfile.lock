@@ -23,6 +23,7 @@ GEM
       multi_json (~> 1.3)
     json (1.8.0)
     method_source (0.8.1)
+    mime-types (1.23)
     minitest (5.0.6)
     multi_json (1.7.7)
     parslet (1.5.0)
@@ -31,6 +32,8 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rubyzip (0.9.9)
     selenium-webdriver (2.33.0)
       childprocess (>= 0.2.5)
@@ -50,4 +53,5 @@ DEPENDENCIES
   cucumber
   minitest
   pry
+  rest-client
   selenium-webdriver

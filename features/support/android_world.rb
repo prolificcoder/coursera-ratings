@@ -8,6 +8,7 @@ class AndroidWorld
         :app_name => ANDROID_APP_NAME
     }
     if(ENV['runon'] == 'sauce')
+      SauceStorage::upload ANDROID_PATH
       android_app[:app_path] = 'sauce-storage:' + ANDROID_APP_NAME
       android_app[:sauce_username] = SAUCE_USERNAME
       android_app[:sauce_access_key] = SAUCE_ACCESS_KEY
