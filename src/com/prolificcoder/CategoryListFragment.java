@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -22,7 +23,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 public class CategoryListFragment extends ListFragment{
-	//private static final int ACTIVITY_DETAIL = 1;
+	private static final int ACTIVITY_DETAIL = 1;
 
 	private EditText filterText = null;
 	private List<ParseObject> categories;
@@ -127,9 +128,9 @@ public class CategoryListFragment extends ListFragment{
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-//		super.onListItemClick(l, v, position, id);
-//		Intent i = new Intent(this, CategoryDetailActivity.class);
-//		i.putExtra("name", categories.get(position).getString("name").toString());
-//		startActivityForResult(i, ACTIVITY_DETAIL);
+		super.onListItemClick(l, v, position, id);
+		Intent i = new Intent(getActivity(), CategoryDetailActivity.class);
+		i.putExtra("name", categories.get(position).getString("short_name").toString());
+		startActivityForResult(i, ACTIVITY_DETAIL);
 	}
 }

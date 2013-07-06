@@ -17,7 +17,7 @@ public class CourseDetailActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.single_list_item_view);
+		this.setContentView(R.layout.single_course_item_view);
 
 		Intent i = getIntent();
 		final String courseName = i.getStringExtra("name");

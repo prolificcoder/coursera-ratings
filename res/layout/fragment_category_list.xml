@@ -20,13 +20,6 @@
         android:id="@android:id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-        android:hint="search categories"/>
-
-    <TextView
-        android:id="@+id/android:empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/empty" />
 
 </LinearLayout>
 </FrameLayout>
