@@ -43,44 +43,34 @@ public class CategoryDetailActivity extends FragmentActivity {
 		TextView nameText = (TextView) findViewById(R.id.CategoryName);
 		nameText.setText(categoryName);
 		nameText.setContentDescription(categoryName);
-		Map<String,String> inputParams = new HashMap<String,String>();
+		Map<String, String> inputParams = new HashMap<String, String>();
 		inputParams.put("category", categoryName);
-		ParseCloud.callFunctionInBackground("courses_for_category", inputParams, new FunctionCallback<JSONArray>(){
+		ParseCloud.callFunctionInBackground("courses_for_category",
+				inputParams, new FunctionCallback<JSONArray>() {
+					@Override
+					public void done(JSONArray jarray, ParseException e) {
+						try {
+							Log.w(null, "Success in calling cloud code");
+							Log.w(null,
+									"First course retrieved "
+											+ jarray.get(0).toString());
+							courseRows = new CourseRow[jarray.length()];
+							for (int i = 0; i < jarray.length(); i++) {
+								courseRows[i] = new CourseRow(jarray
+										.getString(i), 20);
+							}
+							CourseRowAdaptor adaptor = new CourseRowAdaptor(CategoryDetailActivity.this,
+									R.layout.course_row, courseRows);
 
-			@Override
-			public void done(JSONArray jarray, ParseException e) {
-			try
-			{
-	        	 Log.w(null, "Success in calling cloud code");
-	        	 Log.w(null, "First course retrieved " + jarray.get(0).toString());
-				courseRows = new CourseRow[jarray.length()];
-		         for (int i = 0; i < jarray.length(); i++)
-			     {		         
-		        	courseRows[i] = new CourseRow(jarray.getString(i), 20);
-			     }
-			     
-			}
-			catch (JSONException e1)
-			{
-				e1.printStackTrace();
-			}
-		}
-	});
-}
-	   
-		@Override
-		protected void onStart()
-		{
-			super.onStart();
-			if (courseRows != null)
-			{
-			CourseRowAdaptor adaptor = new CourseRowAdaptor(this,
-					R.layout.course_row, courseRows);
-			
-			ListView listView1 = (ListView) this.findViewById(android.R.id.list);
-			listView1.setAdapter(adaptor);
-			listView1.setVisibility(View.VISIBLE);
-			}
-		}
+							ListView listView1 = (ListView) CategoryDetailActivity.this.findViewById(android.R.id.list);
+							listView1.setAdapter(adaptor);
+							listView1.setVisibility(View.VISIBLE);
+
+						} catch (JSONException e1) {
+							e1.printStackTrace();
+						}
+					}
+				});
+		
 	}
-
+}
