@@ -6,17 +6,16 @@
 
     <LinearLayout android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_height="wrap_content">
 
 	<EditText
            android:id="@+id/category_search_box"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:ems="10" 
-           android:hint="search category"/>
+           android:hint="search courses"/>
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/android:list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

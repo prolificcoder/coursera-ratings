@@ -110,12 +110,8 @@ public class CategoryListFragment extends ListFragment{
 			array_sort.clear();
 			for (int i = 0; i < categoryRows.size(); i++) {
 				if (textlength <= categoryRows.get(i).length()) {
-					if (filterText
-							.getText()
-							.toString()
-							.equalsIgnoreCase(
-									(String) categoryRows.get(i).subSequence(0,
-											textlength))) {
+					if (categoryRows.get(i).toLowerCase().contains(filterText.getText().toString().toLowerCase()))
+			     	 {
 						array_sort.add(categoryRows.get(i));
 					}
 				}

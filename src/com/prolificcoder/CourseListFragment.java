@@ -110,12 +110,8 @@ public class CourseListFragment extends ListFragment {
 			array_sort.clear();
 			for (int i = 0; i < courseRows.length; i++) {
 				if (textlength <= courseRows[i].Name.length()) {
-					if (filterText
-							.getText()
-							.toString()
-							.equalsIgnoreCase(
-									(String) courseRows[i].Name.subSequence(0,
-											textlength))) {
+					if (courseRows[i].Name.toLowerCase().contains(filterText.getText().toString().toLowerCase()))
+			     	 {
 						array_sort.add(courseRows[i]);
 					}
 				}
