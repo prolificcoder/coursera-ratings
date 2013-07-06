@@ -22,7 +22,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 public class CategoryListFragment extends ListFragment{
-	private static final int ACTIVITY_DETAIL = 1;
+	//private static final int ACTIVITY_DETAIL = 1;
 
 	private EditText filterText = null;
 	private List<ParseObject> categories;

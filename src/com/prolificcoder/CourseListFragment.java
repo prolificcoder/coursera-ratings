@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -138,18 +137,8 @@ public class CourseListFragment extends ListFragment {
 //	public void onResume() {
 //		super.onResume();
 //		new RemoteDataTask().execute();
-//		for (ParseObject course : courses) {
-//			course.fetchInBackground(new GetCallback<ParseObject>() {
-//				public void done(ParseObject object, ParseException e) {
-//					if (e == null) {
-//						// Success!
-//					} else {
-//						// Failure!
-//					}
-//				}
-//			});
-//		}
-//	}
+//    }
+	
 	@Override
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container,
           Bundle savedInstanceState) {	
@@ -162,13 +151,13 @@ public class CourseListFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-//		super.onListItemClick(l, v, position, id);
-//		Intent i = new Intent(this, CourseDetailActivity.class);
-//		i.putExtra("name", courses.get(position).getString("name").toString());
-//		i.putExtra("upvote", courses.get(position).getInt("upvote"));
-//		i.putExtra("downvote", courses.get(position).getInt("downvote"));
-//		i.putExtra("url", courses.get(position).getString("url"));
-//		i.putExtra("desc", courses.get(position).getString("Description"));
-//		startActivityForResult(i, ACTIVITY_DETAIL);
+		super.onListItemClick(l, v, position, id);
+		Intent i = new Intent(getActivity(), CourseDetailActivity.class);
+		i.putExtra("name", courses.get(position).getString("name").toString());
+		i.putExtra("upvote", courses.get(position).getInt("upvote"));
+		i.putExtra("downvote", courses.get(position).getInt("downvote"));
+		i.putExtra("url", courses.get(position).getString("url"));
+		i.putExtra("desc", courses.get(position).getString("Description"));
+		startActivityForResult(i, ACTIVITY_DETAIL);
 	}
 }
