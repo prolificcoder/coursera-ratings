@@ -16,15 +16,19 @@
 
 package com.prolificcoder;
 
+import com.parse.ParseUser;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -45,7 +49,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-      
+        Log.d("from app", "app created");
         mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
         final ActionBar actionBar = getActionBar();
@@ -141,8 +145,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	    case R.id.login:
-	        Helpers.facebook_login(this);
+	        Intent i = new Intent(this, LoginActivity.class);
+	        startActivityForResult(i,0);
 	        return true;
+	    case R.id.logout:
+	    	ParseUser.logOut();
 	    default:
 	        return super.onOptionsItemSelected(item);
 	    }
