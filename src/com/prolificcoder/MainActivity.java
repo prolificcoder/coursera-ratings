@@ -16,8 +16,6 @@
 
 package com.prolificcoder;
 
-import com.parse.ParseUser;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
@@ -28,10 +26,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import com.parse.ParseUser;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 

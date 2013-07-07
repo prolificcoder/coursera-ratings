@@ -26,15 +26,6 @@
         <activity android:name="com.prolificcoder.CourseDetailActivity" />
         <activity android:name="com.prolificcoder.CategoryDetailActivity" />
         <activity android:name="com.prolificcoder.UniversityDetailActivity" />
-
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/app_id" />
-
-        <activity
-            android:name="com.facebook.LoginActivity"
-            android:logo="@string/app_name" >
-        </activity>
         <activity
             android:name="com.prolificcoder.LoginActivity"
             android:label="@string/title_activity_login"

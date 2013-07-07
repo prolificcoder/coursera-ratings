@@ -5,12 +5,7 @@
     <string name="confirm">Done</string>
     <string name="desc_label">Description</string>
     <string name="app_id">627867653903494</string>
-    <string name="facebook_login">Facebook login</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
-    <string name="submit_button_text">Submit</string>
-    <string name="enter_password_hint">enter password</string>
-    <string name="enter_username_hint">enter user name</string>
-    <string name="username_label">Username</string>
-    <string name="password_label">Password</string>
+    
 </resources>
