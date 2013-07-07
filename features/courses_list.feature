@@ -4,25 +4,24 @@ Feature: As a coursera user/enthusiast, I'd
   Background: App is loaded
     Given That I open coursera application on my phone
 
-  Scenario: All the courses on coursera are listed
-    Then I should see all the courses tha are available on coursera
-      And I should also see course rating
-
   Scenario: Courses are sorted by number of votes
     Then I should see courses sorted by number of votes
       But I should not see courses sorted by rating
 
-  Scenario Outline: Courses can be searched
-    Given I enter <Input Text>  in search box
-    Then I should see <Output Text> course
+  @passing
+  Scenario Outline: Courses can be searched with partial text or any case
+    Given I enter <Input Text> in course search box
+    Then I should see the <Course Name> course
     But I should not see <Negative Text> course
   Examples:
-    | Input Text          | Output Text         | Negative Text |
-    | Public Speaking     | Public Speaking     | Startup Engineering |
-    | Startup Engineering | Startup Engineering | Public Speaking |
-    | pubLic speAKing     | Public Speaking     | Startup Engineering |
-    | StARtup EngineeRIng | Startup Engineering | Public Speaking |
+    | Input Text       | Course Name         | Negative Text |
+    | Public Speaking  | Public Speaking     | Startup Engineering |
+    | Engineering      | Startup Engineering | Public Speaking |
+    | pubLic speAKing  | Public Speaking     | Startup Engineering |
+    | aRTup           | Startup Engineering | Public Speaking |
 
+  @wired @failing
   Scenario: Should render course details on clicking a course
-    Given I click on startup engineering
-    Then I should see Startup Engineering course details
+    Given I enter Machine Learning in course search box
+    Given I click on Machine Learning course
+    Then I should see Machine Learning course details

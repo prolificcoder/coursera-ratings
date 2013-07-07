@@ -5,6 +5,7 @@ Feature: As a coursera user I'd like to see see more details
     Given That I open coursera application on my phone
     Given That I am on Startup Engineering course details view
 
+  @passing
   Scenario: Should have information related to the course
     Then I should see url, description, name and ratings of Startup Engineering course
       And I should see upvote and downvote

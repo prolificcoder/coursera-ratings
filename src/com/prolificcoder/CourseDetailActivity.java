@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -42,6 +43,8 @@ public class CourseDetailActivity extends Activity {
 		final ImageButton buttonUp = (ImageButton) findViewById(R.id.Up);
 		buttonUp.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				if(ParseFacebookUtils.getSession() == null)
+					Helpers.facebook_login(CourseDetailActivity.this);
 				ParseQuery<ParseObject> query = ParseQuery.getQuery("courses");
 				query.whereEqualTo("name", courseName);
 				query.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -63,6 +66,8 @@ public class CourseDetailActivity extends Activity {
 		final ImageButton buttonDown = (ImageButton) findViewById(R.id.Down);
 		buttonDown.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				if(ParseFacebookUtils.getSession() == null)
+					Helpers.facebook_login(CourseDetailActivity.this);
 				ParseQuery<ParseObject> query = ParseQuery.getQuery("courses");
 				query.whereEqualTo("name", courseName);
 				query.getFirstInBackground(new GetCallback<ParseObject>() {
