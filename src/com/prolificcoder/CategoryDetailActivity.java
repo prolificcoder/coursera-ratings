@@ -51,10 +51,6 @@ public class CategoryDetailActivity extends FragmentActivity {
 					@Override
 					public void done(JSONArray jarray, ParseException e) {
 						try {
-							Log.w(null, "Success in calling cloud code");
-							Log.w(null,
-									"First course retrieved "
-											+ jarray.get(0).toString());
 							courseRows = new CourseRow[jarray.length()];
 							for (int i = 0; i < jarray.length(); i++) {
 								courseRows[i] = new CourseRow(jarray
@@ -63,9 +59,18 @@ public class CategoryDetailActivity extends FragmentActivity {
 							CourseRowAdaptor adaptor = new CourseRowAdaptor(CategoryDetailActivity.this,
 									R.layout.course_row, courseRows);
 
-							ListView listView1 = (ListView) CategoryDetailActivity.this.findViewById(android.R.id.list);
-							listView1.setAdapter(adaptor);
-							listView1.setVisibility(View.VISIBLE);
+							if (jarray.length() != 0)
+							{
+								ListView listView1 = (ListView) CategoryDetailActivity.this.findViewById(android.R.id.list);
+								listView1.setAdapter(adaptor);
+								listView1.setVisibility(View.VISIBLE);
+							}
+							else
+							{
+								TextView message = (TextView) findViewById(R.id.NoCourseMessage);
+								message.setText("No courses are classified under this category");
+								message.setVisibility(View.VISIBLE);
+							}
 
 						} catch (JSONException e1) {
 							e1.printStackTrace();
