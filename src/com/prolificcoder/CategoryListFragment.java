@@ -130,7 +130,8 @@ public class CategoryListFragment extends ListFragment{
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		Intent i = new Intent(getActivity(), CategoryDetailActivity.class);
-		i.putExtra("name", categories.get(position).getString("short_name").toString());
+		i.putExtra("short_name", categories.get(position).getString("short_name").toString());
+		i.putExtra("name", categories.get(position).getString("name").toString());
 		startActivityForResult(i, ACTIVITY_DETAIL);
 	}
 }

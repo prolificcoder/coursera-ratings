@@ -1,6 +1,5 @@
 package com.prolificcoder;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,45 +7,37 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.FunctionCallback;
-import com.parse.GetCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 
-public class CategoryDetailActivity extends FragmentActivity {
+public class UniversityDetailActivity extends FragmentActivity {
 
 	private Dialog progressDialog;
 	CourseRow[] courseRows;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.single_category_item_view);
+		this.setContentView(R.layout.single_university_item_view);
 
 		Intent i = getIntent();
-		final String categoryShortName = i.getStringExtra("short_name");
-        final String categoryName = i.getStringExtra("name");
-        
-		TextView nameText = (TextView) findViewById(R.id.CategoryName);
-		nameText.setText(categoryName);
-		nameText.setContentDescription(categoryName);
+		final String universityShortName = i.getStringExtra("short_name");
+		final String universityName = i.getStringExtra("name");
+
+		TextView nameText = (TextView) findViewById(R.id.UniversityName);
+		nameText.setText(universityName);
+		nameText.setContentDescription(universityName);
 		Map<String, String> inputParams = new HashMap<String, String>();
-		inputParams.put("category", categoryShortName);
-		ParseCloud.callFunctionInBackground("courses_for_category",
+		inputParams.put("university", universityShortName);
+		ParseCloud.callFunctionInBackground("courses_for_university",
 				inputParams, new FunctionCallback<JSONArray>() {
 					@Override
 					public void done(JSONArray jarray, ParseException e) {
@@ -60,10 +51,10 @@ public class CategoryDetailActivity extends FragmentActivity {
 								courseRows[i] = new CourseRow(jarray
 										.getString(i), 20);
 							}
-							CourseRowAdaptor adaptor = new CourseRowAdaptor(CategoryDetailActivity.this,
+							CourseRowAdaptor adaptor = new CourseRowAdaptor(UniversityDetailActivity.this,
 									R.layout.course_row, courseRows);
 
-							ListView listView1 = (ListView) CategoryDetailActivity.this.findViewById(android.R.id.list);
+							ListView listView1 = (ListView) UniversityDetailActivity.this.findViewById(android.R.id.list);
 							listView1.setAdapter(adaptor);
 							listView1.setVisibility(View.VISIBLE);
 
