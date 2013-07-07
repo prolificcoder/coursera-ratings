@@ -2,6 +2,7 @@ package com.prolificcoder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -148,12 +149,28 @@ public class CourseListFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		Intent i = new Intent(getActivity(), CourseDetailActivity.class);
-		i.putExtra("name", courses.get(position).getString("name").toString());
-		i.putExtra("upvote", courses.get(position).getInt("upvote"));
-		i.putExtra("downvote", courses.get(position).getInt("downvote"));
-		i.putExtra("url", courses.get(position).getString("url"));
-		i.putExtra("desc", courses.get(position).getString("Description"));
-		startActivityForResult(i, ACTIVITY_DETAIL);
+		CourseRow c = (CourseRow)l.getItemAtPosition(position);
+		Intent intent = new Intent(getActivity(), CourseDetailActivity.class);
+		ListIterator<ParseObject> listIter = courses.listIterator();
+		Boolean matchFound = false;
+		int index = -1;
+		while(listIter.hasNext() && !matchFound)
+		{
+			
+			int i = listIter.nextIndex();
+		   String courseName = listIter.next().get("name").toString();
+		   if (c.Name.equalsIgnoreCase(courseName))  
+		   {
+		      matchFound = true;
+		      index = i;
+		   }
+		}
+		
+		intent.putExtra("name", courses.get(index).getString("name").toString());
+		intent.putExtra("upvote", courses.get(index).getInt("upvote"));
+		intent.putExtra("downvote", courses.get(index).getInt("downvote"));
+		intent.putExtra("url", courses.get(index).getString("url"));
+		intent.putExtra("desc", courses.get(index).getString("Description"));
+		startActivityForResult(intent, ACTIVITY_DETAIL);
 	}
 }
