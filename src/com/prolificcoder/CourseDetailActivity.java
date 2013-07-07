@@ -20,6 +20,10 @@ public class CourseDetailActivity extends Activity {
 	private String courseName = null;
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
+		updateRating(requestCode);
+	}
+
+	private void updateRating(int requestCode) {
 		final int rCode = requestCode;
 		if (Helpers.vote_status(courseName) == Vote.NONE) {
 			ParseQuery<ParseObject> query = ParseQuery
@@ -37,7 +41,7 @@ public class CourseDetailActivity extends Activity {
 						}
 						else if(rCode == Helpers.VoteButton_down)
 						{
-							object.increment("upvote");
+							object.increment("downvote");
 						}
 						object.saveInBackground();
 						TextView ratingText = (TextView) findViewById(R.id.Rating);
@@ -90,7 +94,11 @@ public class CourseDetailActivity extends Activity {
 				{
 					startActivityForResult(new Intent(
 							CourseDetailActivity.this, LoginActivity.class), Helpers.VoteButton_up);					
-				}				
+				}	
+				else
+				{
+				   updateRating(Helpers.VoteButton_up);
+				}
 			}
 		});
 
@@ -102,7 +110,12 @@ public class CourseDetailActivity extends Activity {
 					startActivityForResult(new Intent(
 							CourseDetailActivity.this, LoginActivity.class), Helpers.VoteButton_down);					
 				}
+				else
+				{
+				   updateRating(Helpers.VoteButton_down);
+				}
 			}
 		});
 	}
+	
 }
