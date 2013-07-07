@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -22,12 +23,12 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 public class UniversityListFragment extends ListFragment{
-	//private static final int ACTIVITY_DETAIL = 1;
+	private static final int ACTIVITY_DETAIL = 1;
 
 	private EditText filterText = null;
 	private List<ParseObject> universities;
 	private Dialog progressDialog;
-	ArrayList<String> categoryRows;
+	ArrayList<String> universityRows;
 	ListView listView1;
 	View rootView;
 
@@ -63,12 +64,12 @@ public class UniversityListFragment extends ListFragment{
 		@Override
 		protected void onPostExecute(Void result) {
 			// Put the list of todos into the list view
-			categoryRows = new ArrayList<String>();
+			universityRows = new ArrayList<String>();
 			for (ParseObject university : universities) {
-				categoryRows.add(university.getString("name"));
+				universityRows.add(university.getString("name"));
 			}
 
-			ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, categoryRows);
+			ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, universityRows);
 			UniversityListFragment.this.progressDialog.dismiss();
 			filterText = (EditText) rootView.findViewById(R.id.university_search_box);
 			filterText.addTextChangedListener(filterTextWatcher);
@@ -108,11 +109,11 @@ public class UniversityListFragment extends ListFragment{
 			int textlength = filterText.getText().length();
 			ArrayList<String> array_sort = new ArrayList<String>();
 			array_sort.clear();
-			for (int i = 0; i < categoryRows.size(); i++) {
-				if (textlength <= categoryRows.get(i).length()) {
-					if (categoryRows.get(i).toLowerCase().contains(filterText.getText().toString().toLowerCase()))
+			for (int i = 0; i < universityRows.size(); i++) {
+				if (textlength <= universityRows.get(i).length()) {
+					if (universityRows.get(i).toLowerCase().contains(filterText.getText().toString().toLowerCase()))
 			     	 {
-						array_sort.add(categoryRows.get(i));
+						array_sort.add(universityRows.get(i));
 					}
 				}
 			}
@@ -127,9 +128,10 @@ public class UniversityListFragment extends ListFragment{
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-//		super.onListItemClick(l, v, position, id);
-//		Intent i = new Intent(this, CategoryDetailActivity.class);
-//		i.putExtra("name", categories.get(position).getString("name").toString());
-//		startActivityForResult(i, ACTIVITY_DETAIL);
+		super.onListItemClick(l, v, position, id);
+		Intent i = new Intent(getActivity(), UniversityDetailActivity.class);
+		i.putExtra("short_name", universities.get(position).getString("short_name").toString());
+		i.putExtra("name", universities.get(position).getString("name").toString());
+		startActivityForResult(i, ACTIVITY_DETAIL);
 	}
 }
