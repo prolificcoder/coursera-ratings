@@ -30,6 +30,7 @@ public class Helpers {
 					Log.d("MyApp", "User logged in through Facebook!");
 				}
 			}
+			
 		});
 	}
 }
