@@ -24,8 +24,9 @@ function json_save(course) {
         local_course.set("name", course.name);
         local_course.set("Description", strip(course.about_the_course));
         local_course.set("work_load", course.estimated_class_workload);
-        local_course.set("University", course.universities[0].short_name);
-        local_course.set("url",course.courses[course.courses.length-1].home_link);
+        local_course.set("University", course.universities[0].name);
+        if(course.courses.length >0)
+            local_course.set("url",course.courses[course.courses.length-1].home_link);
         local_course.set("Categories", extract_short_name(course.categories));
         var query = new Parse.Query(Courses);
         query.equalTo("name", course.name);
@@ -52,7 +53,7 @@ function json_save(course) {
 function extract_short_name(object_array) {
     var cat_names = [];
     for (var i = 0; i < object_array.length; i++) {
-        cat_names.push(object_array[i].short_name);
+        cat_names.push(object_array[i].name);
     }
     return cat_names;
 }
