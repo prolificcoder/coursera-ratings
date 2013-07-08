@@ -1,9 +1,10 @@
 package com.prolificcoder;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -92,11 +93,26 @@ public class CourseDetailActivity extends Activity {
 		this.setContentView(R.layout.single_course_item_view);
 
 		Intent i = getIntent();
-		courseName = i.getStringExtra("name");
-		int upvote = i.getIntExtra("upvote", 0);
-		int downvote = i.getIntExtra("downvote", 0);
-		String url = i.getStringExtra("url");
-
+		courseName = i.getStringExtra("coursename");
+		
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(Constants.PARSE_COURSE_TABLE_NAME);
+		query.whereContains("name", courseName);
+		List<ParseObject> course_details = null;
+		try {
+			course_details = query.find();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		int upvote = course_details.get(0).getInt("upvote");
+		int downvote =  course_details.get(0).getInt("downvote");
+		String url =  course_details.get(0).getString("url");
+		String university =  course_details.get(0).getString("University");
+		String description = course_details.get(0).getString("Description");
+		List<String> categories = course_details.get(0).getList("Categories");
+		String catString = android.text.TextUtils.join(", ", categories);
+		
 		TextView nameText = (TextView) findViewById(R.id.CourseName);
 		nameText.setText(courseName);
 		nameText.setContentDescription(courseName);
@@ -108,7 +124,14 @@ public class CourseDetailActivity extends Activity {
 		ratingText.setText(Helpers.average(upvote, downvote).toString() + "%");
 
 		TextView descText = (TextView) findViewById(R.id.Description);
-		descText.setText(i.getStringExtra("desc"));
+		descText.setText(description);
+
+		
+		TextView universityView = (TextView) findViewById(R.id.University);
+		universityView.setText((CharSequence) university);
+	
+		TextView categoryView = (TextView) findViewById(R.id.Categories);
+		categoryView.setText(catString);
 		
 		TextView clearyourvote = (TextView)findViewById(R.id.ClearVote);
 		clearyourvote.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +147,7 @@ public class CourseDetailActivity extends Activity {
 				}
 			}
 		});
-		
+
 		final ImageButton buttonUp = (ImageButton) findViewById(R.id.Up);
 		buttonUp.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
