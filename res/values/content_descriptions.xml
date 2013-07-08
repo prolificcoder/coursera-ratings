@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="up_vote">Up Vote</string>
+  <string name="down_vote">Down Vote</string>
+  <string name="rating">Rating</string>
+  <string name="course_url">Course Url</string>
+  <string name="course_description">Course Description</string>
+  <string name="course_search_box">Course Search Box</string>
+  <string name="category_search_box">Category Search Box</string>
+  <string name="university_search_box">University Search Box</string>
+</resources>

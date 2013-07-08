@@ -2,26 +2,27 @@ package com.prolificcoder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-public class CoursesListActivity extends ListActivity {
+public class CourseListFragment extends ListFragment {
 	private static final int ACTIVITY_DETAIL = 1;
 
 	private EditText filterText = null;
@@ -30,6 +31,7 @@ public class CoursesListActivity extends ListActivity {
 	private Dialog progressDialog;
 	CourseRow courseRows[];
 	ListView listView1;
+	View rootView;
 
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 
@@ -50,8 +52,8 @@ public class CoursesListActivity extends ListActivity {
 
 		@Override
 		protected void onPreExecute() {
-			CoursesListActivity.this.progressDialog = ProgressDialog.show(
-					CoursesListActivity.this, "", "Loading...", true);
+			CourseListFragment.this.progressDialog = ProgressDialog.show(
+					getActivity(), "", "Loading...", true);
 			super.onPreExecute();
 		}
 
@@ -63,7 +65,7 @@ public class CoursesListActivity extends ListActivity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			// Put the list of todos into the list view
+			// Put the list of courses into the list view
 			courseRows = new CourseRow[courses.size()];
 			int i = 0;
 			for (ParseObject course : courses) {
@@ -73,14 +75,14 @@ public class CoursesListActivity extends ListActivity {
 				i++;
 			}
 
-			adaptor = new CourseRowAdaptor(CoursesListActivity.this,
+			adaptor = new CourseRowAdaptor(getActivity(),
 					R.layout.course_row, courseRows);
 
-			CoursesListActivity.this.progressDialog.dismiss();
-			filterText = (EditText) findViewById(R.id.search_box);
+			CourseListFragment.this.progressDialog.dismiss();
+			filterText = (EditText) rootView.findViewById(R.id.course_search_box);
 			filterText.addTextChangedListener(filterTextWatcher);
 
-			listView1 = (ListView) findViewById(android.R.id.list);
+			listView1 = (ListView) rootView.findViewById(android.R.id.list);
 			listView1.setAdapter(adaptor);
 			listView1.setVisibility(View.VISIBLE);
 		}
@@ -88,7 +90,7 @@ public class CoursesListActivity extends ListActivity {
 	}
 
 	@Override
-	protected void onDestroy() {
+	public void onDestroy() {
 		super.onDestroy();
 		filterText.removeTextChangedListener(filterTextWatcher);
 	}
@@ -109,12 +111,8 @@ public class CoursesListActivity extends ListActivity {
 			array_sort.clear();
 			for (int i = 0; i < courseRows.length; i++) {
 				if (textlength <= courseRows[i].Name.length()) {
-					if (filterText
-							.getText()
-							.toString()
-							.equalsIgnoreCase(
-									(String) courseRows[i].Name.subSequence(0,
-											textlength))) {
+					if (courseRows[i].Name.toLowerCase().contains(filterText.getText().toString().toLowerCase()))
+			     	 {
 						array_sort.add(courseRows[i]);
 					}
 				}
@@ -126,50 +124,53 @@ public class CoursesListActivity extends ListActivity {
 				filtered[i]=(CourseRow) course;
 				i++;
 			}			
-			listView1.setAdapter(new CourseRowAdaptor(CoursesListActivity.this,
+			listView1.setAdapter(new CourseRowAdaptor(getActivity(),
 					R.layout.course_row, filtered));
 		}
 
 	};
 
+//	@Override
+//	public void onResume() {
+//		super.onResume();
+//		new RemoteDataTask().execute();
+//    }
+	
 	@Override
-	public void onRestart() {
-		super.onRestart();
+	 public View onCreateView(LayoutInflater inflater, ViewGroup container,
+          Bundle savedInstanceState) {	
+		super.onCreateView(inflater, container, savedInstanceState);	
+		rootView = inflater.inflate(R.layout.fragment_course_list,
+				container, false);
 		new RemoteDataTask().execute();
-		for (ParseObject course : courses) {
-			course.fetchInBackground(new GetCallback<ParseObject>() {
-				public void done(ParseObject object, ParseException e) {
-					if (e == null) {
-						// Success!
-					} else {
-						// Failure!
-					}
-				}
-			});
-		}
+		return rootView;
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-
-		TextView empty = (TextView) findViewById(android.R.id.empty);
-		empty.setVisibility(View.INVISIBLE);
-
-		new RemoteDataTask().execute();
-		registerForContextMenu(getListView());
-	}
-
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		Intent i = new Intent(this, CourseDetailActivity.class);
-		i.putExtra("name", courses.get(position).getString("name").toString());
-		i.putExtra("upvote", courses.get(position).getInt("upvote"));
-		i.putExtra("downvote", courses.get(position).getInt("downvote"));
-		i.putExtra("url", courses.get(position).getString("url"));
-		i.putExtra("desc", courses.get(position).getString("Description"));
-		startActivityForResult(i, ACTIVITY_DETAIL);
+		CourseRow c = (CourseRow)l.getItemAtPosition(position);
+		Intent intent = new Intent(getActivity(), CourseDetailActivity.class);
+		ListIterator<ParseObject> listIter = courses.listIterator();
+		Boolean matchFound = false;
+		int index = -1;
+		while(listIter.hasNext() && !matchFound)
+		{
+			
+			int i = listIter.nextIndex();
+		   String courseName = listIter.next().get("name").toString();
+		   if (c.Name.equalsIgnoreCase(courseName))  
+		   {
+		      matchFound = true;
+		      index = i;
+		   }
+		}
+		
+		intent.putExtra("name", courses.get(index).getString("name").toString());
+		intent.putExtra("upvote", courses.get(index).getInt("upvote"));
+		intent.putExtra("downvote", courses.get(index).getInt("downvote"));
+		intent.putExtra("url", courses.get(index).getString("url"));
+		intent.putExtra("desc", courses.get(index).getString("Description"));
+		startActivityForResult(intent, ACTIVITY_DETAIL);
 	}
 }

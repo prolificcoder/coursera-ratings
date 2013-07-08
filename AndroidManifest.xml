@@ -4,22 +4,32 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="15"/>
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="15" />
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="com.prolificcoder.CoursesListApplication"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" android:name="CoursesListApplication">
+        android:label="@string/app_name" >
         <activity
-            android:name=".CoursesListActivity"
+            android:name="com.prolificcoder.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CourseDetailActivity" >
+        <activity android:name="com.prolificcoder.CourseDetailActivity" />
+        <activity android:name="com.prolificcoder.CategoryDetailActivity" />
+        <activity android:name="com.prolificcoder.UniversityDetailActivity" />
+        <activity
+            android:name="com.prolificcoder.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
     </application>
 
