@@ -7,9 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.app.Dialog;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,7 +18,7 @@ import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
 
-public class CategoryDetailActivity extends FragmentActivity {
+public class CategoryDetailActivity extends ListActivity {
 
 	private Dialog progressDialog;
 	CourseRow[] courseRows;
@@ -74,5 +74,15 @@ public class CategoryDetailActivity extends FragmentActivity {
 						}
 					}
 				});		
+	}
+	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		CourseRow c = (CourseRow)l.getItemAtPosition(position);
+		Intent intent = new Intent(this, CourseDetailActivity.class);
+		
+		intent.putExtra("coursename", c.Name);
+		startActivityForResult(intent, 1);
 	}
 }

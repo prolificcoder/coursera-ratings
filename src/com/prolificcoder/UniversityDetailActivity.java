@@ -77,9 +77,13 @@ public class UniversityDetailActivity extends ListActivity {
 				});		
 	}
 	
-	@Override 
+	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-	
+		super.onListItemClick(l, v, position, id);
+		CourseRow c = (CourseRow)l.getItemAtPosition(position);
+		Intent intent = new Intent(this, CourseDetailActivity.class);
 		
+		intent.putExtra("coursename", c.Name);
+		startActivityForResult(intent, 1);
 	}
 }
