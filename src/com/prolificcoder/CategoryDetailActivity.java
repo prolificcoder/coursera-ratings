@@ -1,6 +1,5 @@
 package com.prolificcoder;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,25 +7,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.FunctionCallback;
-import com.parse.GetCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 
 public class CategoryDetailActivity extends FragmentActivity {
 

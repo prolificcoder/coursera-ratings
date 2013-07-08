@@ -7,5 +7,6 @@
     <string name="app_id">627867653903494</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
+    <string name="clear_vote">Clear your vote</string>
     
 </resources>

@@ -28,41 +28,61 @@ public class CourseDetailActivity extends Activity {
 
 	private void updateRating(int requestCode) {
 		final int rCode = requestCode;
-		if (Helpers.vote_status(courseName) == Vote.NONE) {
+		final Vote voteStatus = Helpers.vote_status(courseName);
+		if ((voteStatus == Vote.NONE) || (rCode == Helpers.VoteButton_clear))
+		{
 			ParseQuery<ParseObject> query = ParseQuery
 					.getQuery("courses");
 			query.whereEqualTo("name", courseName);
+			
 			query.getFirstInBackground(new GetCallback<ParseObject>() {
+				
 				public void done(ParseObject object, ParseException e) {
-					if (object == null) {
-						Log.d("from app", "The getFirst request failed.");
-					} else {
-						Log.d("from app", "Retrieved the object.");
 						if (rCode == Helpers.VoteButton_up)
 						{
-						object.increment("upvote");
+							if (voteStatus == Vote.NONE)
+							{
+								object.increment("upvote");
+								Helpers.save_vote(courseName, "up");
+							}
 						}
 						else if(rCode == Helpers.VoteButton_down)
 						{
-							object.increment("downvote");
+							if (Helpers.vote_status(courseName) == Vote.NONE)
+							{
+								object.increment("downvote");
+								Helpers.save_vote(courseName, "down");
+							}
+						}						
+						else if (rCode == Helpers.VoteButton_clear)
+						{	
+							if (voteStatus != Vote.NONE)
+							{
+								Helpers.delete_vote(courseName);
+							}
+							
+							if (voteStatus == Vote.UP)
+						    {
+						       int count = object.getInt("upvote");
+						       object.put("upvote", --count);
+						    }
+						    else if(voteStatus == Vote.DOWN)
+						    {
+						    	int count = object.getInt("downvote");
+							    object.put("downvote", --count);
+						    }
 						}
+						
 						object.saveInBackground();
 						TextView ratingText = (TextView) findViewById(R.id.Rating);
 						ratingText.setText(Helpers.average(
 								object.getInt("upvote"),
 								object.getInt("downvote")).toString()
 								+ "%");
-					}
+					
 				}
 			});
-			if (rCode == Helpers.VoteButton_up)
-			{
-				Helpers.save_vote(courseName, "up");
-			}
-			else if(rCode == Helpers.VoteButton_down)
-			{
-				Helpers.save_vote(courseName, "down");
-			}
+			
 			
 		}
 	}
@@ -89,7 +109,22 @@ public class CourseDetailActivity extends Activity {
 
 		TextView descText = (TextView) findViewById(R.id.Description);
 		descText.setText(i.getStringExtra("desc"));
-
+		
+		TextView clearyourvote = (TextView)findViewById(R.id.ClearVote);
+		clearyourvote.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				if (ParseUser.getCurrentUser() == null)
+				{
+					startActivityForResult(new Intent(
+							CourseDetailActivity.this, LoginActivity.class), Helpers.VoteButton_clear);					
+				}	
+				else
+				{
+					updateRating(Helpers.VoteButton_clear);
+				}
+			}
+		});
+		
 		final ImageButton buttonUp = (ImageButton) findViewById(R.id.Up);
 		buttonUp.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
