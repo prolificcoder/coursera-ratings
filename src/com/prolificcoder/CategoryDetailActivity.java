@@ -51,10 +51,17 @@ public class CategoryDetailActivity extends FragmentActivity {
 					@Override
 					public void done(JSONArray jarray, ParseException e) {
 						try {
-							courseRows = new CourseRow[jarray.length()];
-							for (int i = 0; i < jarray.length(); i++) {
-								courseRows[i] = new CourseRow(jarray
-										.getString(i), 20);
+							courseRows = new CourseRow[jarray.length() / 3];
+							int i = 0;
+							int cRowCount = 0;
+							while(i < jarray.length()) {
+								
+								String courseName = jarray.getString(i++);
+								String upvoteString = jarray.getString(i++);
+								String downvoteString = jarray.getString(i++);
+								int upvote = (!upvoteString.equalsIgnoreCase("null")) ? Integer.getInteger(upvoteString) : 0;
+								int downvote = (!downvoteString.equalsIgnoreCase("null")) ? Integer.getInteger(downvoteString) : 0;
+								courseRows[cRowCount++] = new CourseRow(courseName, Helpers.average(upvote, downvote));
 							}
 							CourseRowAdaptor adaptor = new CourseRowAdaptor(CategoryDetailActivity.this,
 									R.layout.course_row, courseRows);
