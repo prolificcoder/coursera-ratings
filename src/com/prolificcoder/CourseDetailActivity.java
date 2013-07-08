@@ -33,7 +33,7 @@ public class CourseDetailActivity extends Activity {
 		if ((voteStatus == Vote.NONE) || (rCode == Helpers.VoteButton_clear))
 		{
 			ParseQuery<ParseObject> query = ParseQuery
-					.getQuery("courses");
+					.getQuery(Constants.PARSE_COURSE_TABLE_NAME);
 			query.whereEqualTo("name", courseName);
 			
 			query.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -73,14 +73,12 @@ public class CourseDetailActivity extends Activity {
 							    object.put("downvote", --count);
 						    }
 						}
-						
 						object.saveInBackground();
 						TextView ratingText = (TextView) findViewById(R.id.Rating);
 						ratingText.setText(Helpers.average(
 								object.getInt("upvote"),
 								object.getInt("downvote")).toString()
 								+ "%");
-					
 				}
 			});
 			
