@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -116,6 +119,26 @@ public class CourseDetailActivity extends Activity {
 				}
 			}
 		});
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.common_menu, menu);
+	    return true;
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	    case R.id.login:
+	        Intent i = new Intent(this, LoginActivity.class);
+	        startActivityForResult(i,0);
+	        return true;
+	    case R.id.logout:
+	    	ParseUser.logOut();
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
 	}
 	
 }
