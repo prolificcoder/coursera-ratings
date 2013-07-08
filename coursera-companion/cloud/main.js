@@ -20,6 +20,8 @@ Parse.Cloud.define("courses_for_university", function(request, response) {
             var courses =[];
             for(var i =0; i<results.length; i++){
                 courses.push(results[i].get("name"));
+                courses.push(results[i].get("upvote"));
+                courses.push(results[i].get("downvote"));
             }
             response.success(courses);
         },
@@ -36,6 +38,8 @@ Parse.Cloud.define("courses_for_category", function(request, response) {
             var courses =[];
             for(var i =0; i<results.length; i++){
                 courses.push(results[i].get("name"));
+                courses.push(results[i].get("upvote"));
+                courses.push(results[i].get("downvote"));
             }
             response.success(courses);
         },
