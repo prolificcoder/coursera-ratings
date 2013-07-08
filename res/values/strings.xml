@@ -4,6 +4,8 @@
     <string name="empty">There are no courses.</string>
     <string name="confirm">Done</string>
     <string name="desc_label">Description</string>
+    <string name="university_label">University</string>
+    <string name="category_label">Categories</string>
     <string name="app_id">627867653903494</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>

@@ -39,7 +39,7 @@ public class CourseListFragment extends ListFragment {
 		protected Void doInBackground(Void... params) {
 			// Gets the current list of courses in sorted order
 			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-					"courses");
+					"courses_db");
 			query.orderByDescending("upvote");
 
 			try {
@@ -151,26 +151,8 @@ public class CourseListFragment extends ListFragment {
 		super.onListItemClick(l, v, position, id);
 		CourseRow c = (CourseRow)l.getItemAtPosition(position);
 		Intent intent = new Intent(getActivity(), CourseDetailActivity.class);
-		ListIterator<ParseObject> listIter = courses.listIterator();
-		Boolean matchFound = false;
-		int index = -1;
-		while(listIter.hasNext() && !matchFound)
-		{
-			
-			int i = listIter.nextIndex();
-		   String courseName = listIter.next().get("name").toString();
-		   if (c.Name.equalsIgnoreCase(courseName))  
-		   {
-		      matchFound = true;
-		      index = i;
-		   }
-		}
 		
-		intent.putExtra("name", courses.get(index).getString("name").toString());
-		intent.putExtra("upvote", courses.get(index).getInt("upvote"));
-		intent.putExtra("downvote", courses.get(index).getInt("downvote"));
-		intent.putExtra("url", courses.get(index).getString("url"));
-		intent.putExtra("desc", courses.get(index).getString("Description"));
+		intent.putExtra("coursename", c.Name);
 		startActivityForResult(intent, ACTIVITY_DETAIL);
 	}
 }
