@@ -38,7 +38,7 @@ public class UniversityListFragment extends ListFragment{
 		protected Void doInBackground(Void... params) {
 			// Gets the current list of courses in sorted order
 			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-					"universities_te");
+					Constants.PARSE_UNIVERSITY_TABLE_NAME);
 
 			try {
 				universities = query.find();

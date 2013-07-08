@@ -76,7 +76,7 @@ public class CourseDetailActivity extends Activity {
 		Intent i = getIntent();
 		courseName = i.getStringExtra("coursename");
 		
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("courses_db");
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(Constants.PARSE_COURSE_TABLE_NAME);
 		query.whereContains("name", courseName);
 		List<ParseObject> course_details = null;
 		try {
@@ -92,7 +92,7 @@ public class CourseDetailActivity extends Activity {
 		String university =  course_details.get(0).getString("University");
 		String description = course_details.get(0).getString("Description");
 		List<String> categories = course_details.get(0).getList("Categories");
-		String catString = android.text.TextUtils.join(",", categories);
+		String catString = android.text.TextUtils.join(", ", categories);
 		
 		TextView nameText = (TextView) findViewById(R.id.CourseName);
 		nameText.setText(courseName);

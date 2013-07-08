@@ -39,7 +39,7 @@ public class CourseListFragment extends ListFragment {
 		protected Void doInBackground(Void... params) {
 			// Gets the current list of courses in sorted order
 			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-					"courses_db");
+					Constants.PARSE_COURSE_TABLE_NAME);
 			query.orderByDescending("upvote");
 
 			try {
