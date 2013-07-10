@@ -110,6 +110,9 @@
         android:textColor="#ffffff"
         android:textStyle="bold"     
          android:padding="1dp"
+        android:fadeScrollbars="false"
+        android:scrollbarSize="3dp"
+        android:scrollbars="vertical"
         android:background="@drawable/border_white"  
         android:contentDescription="@string/course_description"/>
 

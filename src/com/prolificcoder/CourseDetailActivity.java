@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -122,6 +123,8 @@ public class CourseDetailActivity extends Activity {
 		ratingText.setText(Helpers.average(upvote, downvote).toString() + "%");
 
 		TextView descText = (TextView) findViewById(R.id.Description);
+		
+		descText.setMovementMethod(new ScrollingMovementMethod());
 		descText.setText(description);
 
 		
