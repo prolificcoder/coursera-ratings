@@ -1,6 +1,7 @@
 package com.prolificcoder;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 public class CategoryDetailActivity extends ListActivity {
 
@@ -28,8 +31,20 @@ public class CategoryDetailActivity extends ListActivity {
 		this.setContentView(R.layout.single_category_item_view);
 
 		Intent i = getIntent();
-		final String categoryShortName = i.getStringExtra("short_name");
+		// i.getStringExtra("short_name");
         final String categoryName = i.getStringExtra("name");
+        
+        ParseQuery<ParseObject> query= ParseQuery.getQuery(Constants.PARSE_CATEGORY_TABLE_NAME);
+        query.whereContains("name", categoryName);
+        List<ParseObject> category_info = null;
+		try {
+			category_info = query.find();
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+        final String categoryShortName = category_info.get(0).getString("short_name");
         
 		TextView nameText = (TextView) findViewById(R.id.CategoryName);
 		nameText.setText(categoryName);

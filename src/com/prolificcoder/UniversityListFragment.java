@@ -128,10 +128,9 @@ public class UniversityListFragment extends ListFragment{
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
+		super.onListItemClick(l, v, position, id);		
 		Intent i = new Intent(getActivity(), UniversityDetailActivity.class);
-		i.putExtra("short_name", universities.get(position).getString("short_name").toString());
-		i.putExtra("name", universities.get(position).getString("name").toString());
+		i.putExtra("name", l.getItemAtPosition(position).toString());
 		startActivityForResult(i, ACTIVITY_DETAIL);
 	}
 }

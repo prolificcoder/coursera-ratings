@@ -1,6 +1,7 @@
 package com.prolificcoder;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 public class UniversityDetailActivity extends ListActivity {
 
@@ -28,12 +31,22 @@ public class UniversityDetailActivity extends ListActivity {
 		this.setContentView(R.layout.single_university_item_view);
 
 		Intent i = getIntent();
-		final String universityShortName = i.getStringExtra("short_name");
 		final String universityName = i.getStringExtra("name");
 
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(Constants.PARSE_UNIVERSITY_TABLE_NAME);
+		query.whereContains("name", universityName);
+		List<ParseObject> univInfo = null;
+		try {
+			univInfo = query.find();
+		} catch (ParseException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		final String universityShortName = univInfo.get(0).getString("short_name");		
+		
 		TextView nameText = (TextView) findViewById(R.id.UniversityName);
 		nameText.setText(universityName);
-		nameText.setContentDescription(universityName);
+		nameText.setContentDescription(universityName);		
 		Map<String, String> inputParams = new HashMap<String, String>();
 		inputParams.put("university", universityShortName);
 		ParseCloud.callFunctionInBackground("courses_for_university",
