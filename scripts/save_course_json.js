@@ -22,6 +22,7 @@ function json_save(course) {
         var Courses = Parse.Object.extend("courses_prod");
         var local_course = new Courses();
         local_course.set("name", course.name);
+        local_course.set("course_icon", course.small_icon_hover);
         local_course.set("work_load", course.estimated_class_workload);
         local_course.set("University", course.universities[0].name);
         local_course.set("university_favicon", course.universities[0].favicon);
