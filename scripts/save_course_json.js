@@ -22,9 +22,9 @@ function json_save(course) {
         var Courses = Parse.Object.extend("courses_prod");
         var local_course = new Courses();
         local_course.set("name", course.name);
-        local_course.set("Description", strip(course.about_the_course));
         local_course.set("work_load", course.estimated_class_workload);
         local_course.set("University", course.universities[0].name);
+        local_course.set("university_favicon", course.universities[0].favicon);
         if(course.courses.length >0)
             local_course.set("url",course.courses[course.courses.length-1].home_link);
         local_course.set("Categories", extract_short_name(course.categories));
