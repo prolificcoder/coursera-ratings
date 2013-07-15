@@ -107,9 +107,9 @@ public class CourseDetailActivity extends Activity {
 		int upvote = course_details.get(0).getInt("upvote");
 		int downvote =  course_details.get(0).getInt("downvote");
 		String url =  course_details.get(0).getString("url");
-		String university =  course_details.get(0).getString("University");
-		String description = course_details.get(0).getString("Description");
-		List<String> categories = course_details.get(0).getList("Categories");
+		String university =  course_details.get(0).getString("university");
+		String description = course_details.get(0).getString("description");
+		List<String> categories = course_details.get(0).getList("categories");
 		String catString = android.text.TextUtils.join(", ", categories);
 		
 		TextView nameText = (TextView) findViewById(R.id.CourseName);
