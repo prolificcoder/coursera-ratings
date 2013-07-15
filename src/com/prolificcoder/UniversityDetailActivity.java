@@ -32,23 +32,12 @@ public class UniversityDetailActivity extends ListActivity {
 
 		Intent i = getIntent();
 		final String universityName = i.getStringExtra("name");
-
-		ParseQuery<ParseObject> query = ParseQuery.getQuery(Constants.PARSE_UNIVERSITY_TABLE_NAME);
-		query.whereContains("name", universityName);
-		List<ParseObject> univInfo = null;
-		try {
-			univInfo = query.find();
-		} catch (ParseException e3) {
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
-		}
-		final String universityShortName = univInfo.get(0).getString("short_name");		
 		
 		TextView nameText = (TextView) findViewById(R.id.UniversityName);
 		nameText.setText(universityName);
 		nameText.setContentDescription(universityName);		
 		Map<String, String> inputParams = new HashMap<String, String>();
-		inputParams.put("university", universityShortName);
+		inputParams.put("university", universityName);
 		ParseCloud.callFunctionInBackground("courses_for_university",
 				inputParams, new FunctionCallback<JSONArray>() {
 					@Override

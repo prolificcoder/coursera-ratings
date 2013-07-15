@@ -34,23 +34,11 @@ public class CategoryDetailActivity extends ListActivity {
 		// i.getStringExtra("short_name");
         final String categoryName = i.getStringExtra("name");
         
-        ParseQuery<ParseObject> query= ParseQuery.getQuery(Constants.PARSE_CATEGORY_TABLE_NAME);
-        query.whereContains("name", categoryName);
-        List<ParseObject> category_info = null;
-		try {
-			category_info = query.find();
-		} catch (ParseException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		
-        final String categoryShortName = category_info.get(0).getString("short_name");
-        
 		TextView nameText = (TextView) findViewById(R.id.CategoryName);
 		nameText.setText(categoryName);
 		nameText.setContentDescription(categoryName);
 		Map<String, String> inputParams = new HashMap<String, String>();
-		inputParams.put("category", categoryShortName);
+		inputParams.put("category", categoryName);
 		ParseCloud.callFunctionInBackground("courses_for_category",
 				inputParams, new FunctionCallback<JSONArray>() {
 					@Override
