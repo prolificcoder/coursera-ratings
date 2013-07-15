@@ -13,7 +13,7 @@ request({
 });
 
 function save_category(category) {
-    var categories = Parse.Object.extend("categories_te");
+    var categories = Parse.Object.extend("categories");
     var local_category = new categories();
     local_category.set("name", category.name);
     local_category.set("short_name", category.short_name);

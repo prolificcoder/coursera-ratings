@@ -19,16 +19,17 @@ function json_save(course) {
             method: "GET",
             json: true
         }, function (err, res, course) {
-        var Courses = Parse.Object.extend("courses_prod");
+        var Courses = Parse.Object.extend("courses");
         var local_course = new Courses();
         local_course.set("name", course.name);
         local_course.set("course_icon", course.small_icon_hover);
         local_course.set("work_load", course.estimated_class_workload);
-        local_course.set("University", course.universities[0].name);
+        local_course.set("university", course.universities[0].name);
+        local_course.set("description", course.short_description);
         local_course.set("university_favicon", course.universities[0].favicon);
         if(course.courses.length >0)
             local_course.set("url",course.courses[course.courses.length-1].home_link);
-        local_course.set("Categories", extract_short_name(course.categories));
+        local_course.set("categories", extract_short_name(course.categories));
         var query = new Parse.Query(Courses);
         query.equalTo("name", course.name);
         query.count({

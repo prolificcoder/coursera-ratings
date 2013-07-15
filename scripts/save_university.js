@@ -13,7 +13,7 @@ request({
 });
 
 function save_university(university) {
-    var Universities = Parse.Object.extend("universities_te");
+    var Universities = Parse.Object.extend("universities");
     var local_university = new Universities();
     local_university.set("name", university.name);
     local_university.set("short_name", university.short_name);
