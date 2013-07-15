@@ -1,3 +1,4 @@
+[![Stories in Ready](http://badge.waffle.io/prolificcoder/coursera-ratings.png)](http://waffle.io/prolificcoder/coursera-ratings)  
 Coursera is a MOOC - massively online open course platform. 
 This app provides a platform to
 
