@@ -14,7 +14,7 @@ Parse.Cloud.define("rating", function(request, response) {
 
 Parse.Cloud.define("courses_for_university", function(request, response) {
     var query = new Parse.Query("courses");
-    query.equalTo("University", request.params.university);
+    query.equalTo("university", request.params.university);
     query.find({
         success: function(results){
             var courses =[];
@@ -32,7 +32,7 @@ Parse.Cloud.define("courses_for_university", function(request, response) {
 });
 Parse.Cloud.define("courses_for_category", function(request, response) {
     var query = new Parse.Query("courses");
-    query.equalTo("Categories", request.params.category);
+    query.equalTo("categories", request.params.category);
     query.find({
         success: function(results){
             var courses =[];
