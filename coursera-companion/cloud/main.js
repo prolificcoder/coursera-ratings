@@ -13,7 +13,7 @@ Parse.Cloud.define("rating", function(request, response) {
 });
 
 Parse.Cloud.define("courses_for_university", function(request, response) {
-    var query = new Parse.Query("courses_db");
+    var query = new Parse.Query("courses");
     query.equalTo("University", request.params.university);
     query.find({
         success: function(results){
@@ -31,7 +31,7 @@ Parse.Cloud.define("courses_for_university", function(request, response) {
     });
 });
 Parse.Cloud.define("courses_for_category", function(request, response) {
-    var query = new Parse.Query("courses_db");
+    var query = new Parse.Query("courses");
     query.equalTo("Categories", request.params.category);
     query.find({
         success: function(results){
